@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Features</title>
+  <style>
+    body {
+      background-color: lightblue;
+    }
+
+    .center {
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    #featuresBtn {
+      font-size: 50px;
+    }
+
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      font-size: 25px;
+    }
+
+    th {
+      background-color: lightgray;
+      font-weight: bold;
+    }
+
+    td {
+      padding: 10px;
+      border: 1px solid black;
+    }
+
+    #goBackBtn {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="center">
+    <button id="featuresBtn">Features</button>
+  </div>
+
+  <script>
+    // Function to display features
+    function displayFeatures() {
+      // Create a table with features
+      var featuresTable = document.createElement('table');
+
+      // Create table rows and cells
+      var headers = ['Free', 'Private', 'Premium'];
+      var features = [
+        ['Can create groups amongst themselves.',
+        'Chat within the same groups.',
+        'Upload Notes (Cloud Storage – 5GB).',
+        'Earn points by answering questions.',
+        'Participate in competitions to gain points / ranking.',
+        'Can access partial answers / brief about their questions.'],
+
+        ['Separate Admins to manage groups.',
+        'Create groups / Add people.',
+        'Quizzes / Assessments.',
+        'Can access complete answers instead of partial answers.',
+        'Participate in competitions to gain points / ranking / badges.',
+        'Can access whiteboard within the group.'],
+
+        ['Create groups / Add people.',
+        'Hints to Quizzes / Assessments.',
+        '2X points would be awarded for correct answers.',
+        'Can access all the notes uploaded by the mentor.',
+        'Participate in competitions to gain points / ranking / badges (with provided hints).',
+        'Can access whiteboard within the group.',
+        'Can access AI Help (ChatGPT).']
+      ];
+
+      // Add headers row
+      var headerRow = featuresTable.insertRow(0);
+      for (var i = 0; i < headers.length; i++) {
+        var headerCell = headerRow.insertCell(i);
+        headerCell.innerHTML = headers[i];
+      }
+
+      // Add features rows
+      for (var j = 0; j < features[0].length; j++) {
+        var row = featuresTable.insertRow(j + 1);
+        for (var k = 0; k < features.length; k++) {
+          var cell = row.insertCell(k);
+          cell.innerHTML = features[k][j];
+        }
+      }
+
+      // Append the table to the body
+      document.body.appendChild(featuresTable);
+
+      // Add go back button
+      var goBackBtn = document.createElement('button');
+      goBackBtn.id = 'goBackBtn';
+      goBackBtn.innerHTML = 'Go Back';
+      goBackBtn.onclick = function () {
+        window.close();
+      };
+      document.body.appendChild(goBackBtn);
+    }
+
+    // Add a click event listener to the button
+    var featuresBtn = document.getElementById('featuresBtn');
+    featuresBtn.addEventListener('click', displayFeatures);
+  </script>
+</body>
+</html>
