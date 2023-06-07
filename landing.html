@@ -28,6 +28,25 @@
       font-size: 48px;
       text-align: center;
     }
+
+    .button-group {
+      position: absolute;
+      bottom: 20px;
+      left: 20px; /* Adjusted left position */
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: #fff;
+      color: #000;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -35,6 +54,11 @@
     <a href="index.html" class="login">Log In</a> <!-- Placed login button here -->
     <h1>Welcome to ColLabs</h1>
   </header>
+
+  <div class="button-group">
+    <a href="us.html" class="button">About Us</a>
+    <a href="features.html" class="button">Features</a>
+  </div>
 
   <script>
     // Open the new window on login button click
