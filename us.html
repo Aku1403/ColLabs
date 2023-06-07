@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>About Us</title>
+  <style>
+    body {
+      background-color: lightblue;
+    }
+
+    .center {
+      text-align: center;
+      font-size: 100px;
+      margin-top: 200px;
+    }
+
+    #aboutUsBtn {
+      font-size: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="center">
+    <button id="aboutUsBtn">About Us</button>
+  </div>
+
+  <script>
+    // Function to open the "About Us" window
+    function openAboutUsWindow() {
+      // Open a new window with specified content
+      var aboutUsContent = "Key objectives of the website include promoting knowledge sharing, enabling seamless connections among students, and providing valuable resources for academic success. Through personalized features, interactive learning tools, and community-building elements, our website aims to empower students in their educational journey.";
+      var newWindow = window.open('', '_blank', 'width=800,height=600');
+      newWindow.document.write('<html><head><title>About Us</title><style>body{background-color: lightblue;} p{font-size: 40px;}</style></head><body><p>' + aboutUsContent + '</p><button onclick="window.open(\'\',\'_self\').close();">Go Back</button></body></html>');
+      newWindow.document.close();
+    }
+
+    // Add a click event listener to the button
+    var aboutUsBtn = document.getElementById('aboutUsBtn');
+    aboutUsBtn.addEventListener('click', openAboutUsWindow);
+  </script>
+</body>
+</html>

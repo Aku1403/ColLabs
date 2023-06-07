@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin</title>
+    <style>
+        body {
+            background-color: #ADD8E6;
+            margin: 20px 0 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            margin-left: 20px;
+            background-color: #fff;
+            color: #000;
+        }
+
+        .add-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #3498db;
+            display: none; /* Initially hide the add button */
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 9999;
+        }
+
+        .delete-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #e74c3c;
+            display: none; /* Initially hide the delete button */
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            position: fixed;
+            bottom: 90px;
+            left: 20px; /* Adjust left position for spacing */
+        }
+
+        .menu-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #3498db;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 9999;
+        }
+
+        .menu-button::before {
+            content: "...";
+        }
+
+        .collabs-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #fff;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <button class="collabs-button" onclick="openCollabsPage()">ColLabs</button>
+    <div class="button-group">
+        <button class="button" id="groupAButton">Group A</button>
+        <button class="button">Group B</button>
+        <button class="button">Group C</button>
+        <button class="button">Quiz</button>
+    </div>
+    <div class="add-button" onclick="createNewButton()">+</div>
+    <div class="delete-button" onclick="deleteButton()">X</div>
+    <div class="menu-button" onclick="toggleButtons()"></div>
+
+    <script>
+        // Retrieve buttons from local storage if available
+        var savedButtons = localStorage.getItem('buttons');
+        if (savedButtons) {
+            var buttonGroup = document.querySelector('.button-group');
+            buttonGroup.innerHTML = savedButtons;
+            syncButtons(savedButtons);
+        }
+
+        // Save buttons to local storage
+        function saveButtons() {
+            var buttonGroup = document.querySelector('.button-group');
+            localStorage.setItem('buttons', buttonGroup.innerHTML);
+            syncButtons(buttonGroup.innerHTML);
+        }
+
+        function createNewButton() {
+            var newButtonName = prompt("Enter the name for the new button:");
+            if (newButtonName) {
+                var quizButton = document.querySelector('.button-group .button:last-child');
+                var newButton = document.createElement('button');
+                newButton.classList.add('button');
+                newButton.textContent = newButtonName;
+                quizButton.parentNode.insertBefore(newButton, quizButton);
+
+                // Save updated buttons to local storage
+                saveButtons();
+            }
+        }
+
+        // Function to open "group_A.html" when "Group A" button is clicked
+        var groupAButton = document.getElementById('groupAButton');
+        groupAButton.addEventListener('click', function() {
+            openPage('group_A.html');
+        });
+
+        function openPage(url) {
+            window.location.href = url;
+        }
+
+        function toggleButtons() {
+            var addButton = document.querySelector('.add-button');
+            var deleteButton = document.querySelector('.delete-button');
+            var menuButton = document.querySelector('.menu-button');
+
+            if (addButton.style.display === 'none') {
+                addButton.style.display = 'flex';
+                deleteButton.style.display = 'flex';
+                menuButton.style.bottom = '160px'; // Adjust bottom position to make room for the "add" and "delete" buttons
+            } else {
+                addButton.style.display = 'none';
+                deleteButton.style.display = 'none';
+                menuButton.style.bottom = '20px'; // Adjust bottom position back to the original state
+            }
+        }
+
+        function deleteButton() {
+            var deleteButtonName = prompt("Enter the name of the button to delete:");
+            var buttons = document.querySelectorAll('.button');
+            var deleteIndex = -1;
+
+            buttons.forEach(function (button, index) {
+                if (button.textContent === deleteButtonName && index < buttons.length - 1) {
+                    deleteIndex = index;
+                    button.parentNode.removeChild(button);
+                }
+            });
+
+            if (deleteIndex !== -1) {
+                // Save updated buttons to local storage
+                saveButtons();
+            } else {
+                alert("Button not found or cannot delete the last button.");
+            }
+        }
+
+        // Function to sync buttons between admin.html and student.html
+        function syncButtons(buttonsHTML) {
+            var studentButtonGroup = window.opener.document.querySelector('.button-group');
+            studentButtonGroup.innerHTML = buttonsHTML;
+        }
+
+        function openCollabsPage() {
+            window.open('landing.html', '_self');
+            window.close();
+        }
+    </script>
+</body>
+</html>

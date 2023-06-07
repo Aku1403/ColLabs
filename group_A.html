@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Window with Toggle Button</title>
+  <style>
+    /* CSS styles for the chat window */
+    /* CSS styles for the chat window */
+    .chat-window {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      border: 1px solid #ccc;
+      overflow-y: scroll;
+      padding: 10px;
+    }
+
+    .message {
+      margin-bottom: 10px;
+    }
+
+    .user-message {
+      color: blue;
+    }
+
+    .bot-message {
+      color: green;
+    }
+
+    .input-box {
+      width: 100%;
+      padding: 5px;
+    }
+
+    .toggle-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .vertical-line {
+      position: fixed;
+      top: 0;
+      left: 100px;
+      height: 100%;
+      width: 1px;
+      background-color: black;
+    }
+
+    .upload-button {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .whiteboard-button {
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: white;
+      color: black;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .close-button {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      display: none;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-button" onclick="toggleChat()">Toggle Chat</button>
+
+  <div class="chat-window" id="chatWindow">
+    <div class="close-button" onclick="closeChat()">Close Chat</div>
+    <div class="message user-message">Hello, how can I assist you?</div>
+    <div class="message bot-message">Welcome to the chat!</div>
+  </div>
+
+  <div class="vertical-line"></div>
+
+  <button class="whiteboard-button" onclick="openWhiteboard()">Board</button>
+  <button class="upload-button" id="upload-button" onclick="handleUpload()">Upload</button>
+
+  <script>
+    // JavaScript code for toggling the chat window
+    let chatOpen = false; // Variable to track chat window state
+
+    function toggleChat() {
+      const chatWindow = document.getElementById('chatWindow');
+      const toggleButton = document.querySelector('.toggle-button');
+      const closeButton = document.querySelector('.close-button');
+
+      if (!chatOpen) {
+        chatWindow.style.display = 'block';
+        toggleButton.textContent = 'Close Chat';
+        closeButton.style.display = 'block';
+        chatOpen = true;
+      } else {
+        chatWindow.style.display = 'none';
+        toggleButton.textContent = 'Open Chat';
+        closeButton.style.display = 'none';
+        chatOpen = false;
+      }
+    }
+
+    // JavaScript code for closing the chat window
+    function closeChat() {
+      const chatWindow = document.getElementById('chatWindow');
+      const toggleButton = document.querySelector('.toggle-button');
+      const closeButton = document.querySelector('.close-button');
+
+      chatWindow.style.display = 'none';
+      toggleButton.textContent = 'Open Chat';
+      closeButton.style.display = 'none';
+      chatOpen = false;
+    }
+
+    // JavaScript code for handling user input and displaying bot responses
+    const inputBox = document.createElement('input');
+    inputBox.setAttribute('type', 'text');
+    inputBox.classList.add('input-box');
+    inputBox.placeholder = 'Type your message here';
+
+    const chatWindow = document.getElementById('chatWindow');
+    chatWindow.appendChild(inputBox);
+
+    inputBox.addEventListener('keypress', function (event) {
+      if (event.key === 'Enter') {
+        const userMessage = inputBox.value;
+        inputBox.value = '';
+
+        const userMessageElement = document.createElement('div');
+        userMessageElement.classList.add('message', 'user-message');
+        userMessageElement.textContent = userMessage;
+        chatWindow.insertBefore(userMessageElement, inputBox);
+
+        // Call a function here to process the user message and generate bot response
+        // You can use AJAX or WebSocket to send the user message to the server and receive the bot response
+
+        const botMessage = 'Bot response goes here';
+        const botMessageElement = document.createElement('div');
+        botMessageElement.classList.add('message', 'bot-message');
+        botMessageElement.textContent = botMessage;
+        chatWindow.insertBefore(botMessageElement, inputBox);
+
+        // Scroll to the bottom of the chat window
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+      }
+    });
+
+    // JavaScript code for handling the upload button
+    function handleUpload() {
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.style.display = 'none';
+
+      fileInput.addEventListener('change', function (e) {
+        const selectedFile = e.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          const fileData = e.target.result;
+          localStorage.setItem('uploadedFile', fileData);
+          console.log('File uploaded and stored in local storage.');
+        };
+
+        reader.readAsDataURL(selectedFile);
+      });
+
+      document.body.appendChild(fileInput);
+      fileInput.click();
+    }
+
+    // JavaScript code for handling the whiteboard button
+    function openWhiteboard() {
+      // Add your code here to handle the whiteboard functionality
+      console.log('Whiteboard button clicked!');
+    }
+  </script>
+</body>
+</html>

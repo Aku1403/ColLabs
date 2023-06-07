@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ColLabs - Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: lightblue;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      margin-top: 120px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container h2 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .form-group button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .form-group button:hover {
+      background-color: #45a049;
+    }
+
+    .form-group .error-message {
+      color: #ff0000;
+      margin-top: 5px;
+    }
+
+    .collabs-text {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 9999;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    function login() {
+      var usernameInput = document.getElementById('username');
+      var passwordInput = document.getElementById('password');
+
+      var username = usernameInput.value;
+      var password = passwordInput.value;
+
+      if (username === 'student' && password === 'password') {
+        window.open('student.html', '_self');
+      } else if (username === 'admin' && password === 'password') {
+        window.open('admin.html', '_self');
+      } else {
+        alert('Invalid username or password');
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="collabs-text" onclick="window.open('landing.html', '_self')">ColLabs</div>
+  <div class="container">
+    <h2>Group Learning App - Login</h2>
+    <form action="/login" method="post">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <button type="button" onclick="login()">Login</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

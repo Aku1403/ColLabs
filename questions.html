@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+    <style>
+        body {
+            background-color: #ADD8E6;
+            margin: 20px;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .question {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .option {
+            margin-bottom: 5px;
+        }
+        
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            background-color: #fff;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="questionContainer">
+        <h2 class="question"></h2>
+        <div class="options"></div>
+        <button class="button" onclick="nextQuestion()">Next</button>
+    </div>
+
+    <script>
+        var currentQuestionIndex = 0;
+        var questions = [];
+
+        function loadQuestions() {
+            fetch('questions.json') // Fetch the questions from a JSON file
+                .then(response => response.json())
+                .then(data => {
+                    questions = data;
+                    displayQuestion();
+                })
+                .catch(error => {
+                    console.error('Error fetching questions:', error);
+                });
+        }
+
+        function displayQuestion() {
+            var questionContainer = document.getElementById('questionContainer');
+            var questionElement = questionContainer.querySelector('.question');
+            var optionsContainer = questionContainer.querySelector('.options');
+            var currentQuestion = questions[currentQuestionIndex];
+
+            questionElement.textContent = currentQuestion.question;
+
+            optionsContainer.innerHTML = ''; // Clear previous options
+
+            currentQuestion.options.forEach(function (option) {
+                var optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                optionElement.textContent = option;
+                optionsContainer.appendChild(optionElement);
+            });
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                alert('Quiz completed!');
+                // You can redirect or perform any other action here
+            }
+        }
+
+        // Load questions when the page is loaded
+        window.addEventListener('DOMContentLoaded', loadQuestions);
+    </script>
+</body>
+</html>

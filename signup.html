@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Group Learning App - Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('{{ url_for('static', filename='bac.jpg')}}');
+      background-size: cover;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      margin-top: 120px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container h2 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .form-group button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .form-group button:hover {
+      background-color: #45a049;
+    }
+
+    .form-group .error-message {
+      color: #ff0000;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body background="red">
+  <div class="container">
+    <h2>Group Learning App - SignUp</h2>
+    <form action="/signup" method="post">
+        <div class="form-group">
+                <label for="username">Fullname:</label>
+                <input type="text" id="usename" name="usernae" required>
+              </div>
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <label for="username">Phone number:</label>
+        <input type="text" id="usena" name="usernae" required>
+      </div>
+      <div class="form-group">
+        <button type="submit">Sign Up</button>
+      </div>
+      <div class="form-group signup-link">
+        Back... <a href="/">Login</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

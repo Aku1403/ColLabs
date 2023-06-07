@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student</title>
+    <style>
+        body {
+            background-color: #ADD8E6;
+            margin: 0;
+            padding: 20px 0 0 0; /* Added top padding of 20px */
+            font-family: Arial, sans-serif;
+        }
+        
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            margin-left: 20px;
+            background-color: #fff;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-group">
+        <button class="button" onclick="openPage('group_A.html')">Group A</button>
+        <button class="button">Group B</button>
+        <button class="button">Group C</button>
+        <button class="button" onclick="openPage('quiz.html')">Quiz</button>
+    </div>
+
+    <script>
+        function openPage(url) {
+            window.location.href = url;
+        }
+
+        // Function to sync buttons between admin.html and student.html
+        function syncButtons(buttonsHTML) {
+            var studentButtonGroup = document.querySelector('.button-group');
+            studentButtonGroup.innerHTML = buttonsHTML;
+        }
+    </script>
+</body>
+</html>

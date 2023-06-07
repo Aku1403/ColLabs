@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Landing Page Title</title>
+  <style>
+    body {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      background-color: #b3d9ff; /* Light blue background color */
+    }
+
+    .login {
+      position: absolute;
+      top: 20px;
+      right: 20px; /* Adjusted right position */
+      padding: 10px;
+      background-color: #333;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    h1 {
+      font-size: 48px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="login">Log In</a> <!-- Placed login button here -->
+    <h1>Welcome to ColLabs</h1>
+  </header>
+
+  <script>
+    // Open the new window on login button click
+    document.querySelector('.login').addEventListener('click', function() {
+      window.open('index.html', '_blank');
+      window.close();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Question Writer</title>
+    <style>
+        body {
+            background-color: #ADD8E6;
+            margin: 20px;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            width: 400px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #fff;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <h2>Question Writer</h2>
+    <textarea id="question" placeholder="Enter your question"></textarea>
+    <textarea id="answers" placeholder="Enter answer options, separated by commas"></textarea>
+    <button id="saveBtn">Save Question</button>
+
+    <script>
+        document.getElementById('saveBtn').addEventListener('click', function () {
+            var question = document.getElementById('question').value;
+            var answers = document.getElementById('answers').value.split(',');
+
+            // Create a new question object
+            var newQuestion = {
+                question: question,
+                answers: answers.map(answer => answer.trim()), // Trim any leading/trailing whitespace
+                correctAnswer: answers[0].trim() // Assume the first answer is the correct one
+            };
+
+            // Import the questions array from question.js
+            import('./question.js')
+                .then(module => {
+                    // Add the new question to the array
+                    module.default.push(newQuestion);
+
+                    // Convert the array to a formatted string
+                    var questionsString = JSON.stringify(module.default, null, 2);
+
+                    // Generate the updated question.js content
+                    var updatedContent = `const questions = ${questionsString};\n\nexport default questions;`;
+
+                    // Create a Blob and download the updated question.js file
+                    var blob = new Blob([updatedContent], { type: 'text/javascript' });
+                    var url = URL.createObjectURL(blob);
+                    var link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'question.js';
+                    link.click();
+                })
+                .catch(error => console.error('An error occurred while importing question.js:', error));
+        });
+    </script>
+</body>
+</html>
